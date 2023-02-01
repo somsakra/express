@@ -5,8 +5,8 @@ on:
       - v*
 
 env:
-  REGISTRY: registry.hub.docker.com/library
-  IMAGE_NAME: somsak/express
+  REGISTRY: docker.io
+  IMAGE_NAME: somsakra/express
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
