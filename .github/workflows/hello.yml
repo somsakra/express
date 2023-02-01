@@ -5,7 +5,8 @@ on:
 
 env:
   DAY_OF_WEEK: Monday
-  env_var: ${{ vars.ENV_CONTEXT_VAR }}
+  DOCKER_IMAGE : ${{ secret.IMAGE_NAME }}
+  DOCKER_USERNAME : ${{ secret.USER_NAME }}
 
 jobs:
   greeting_job:
