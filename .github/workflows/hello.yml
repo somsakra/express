@@ -1,0 +1,17 @@
+name: Greeting
+
+on:
+  workflow_dispatch
+
+env:
+  DAY_OF_WEEK: Monday
+  env_var: ${{ vars.ENV_CONTEXT_VAR }}
+
+jobs:
+  greeting_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Say Hello"
+        run: echo "$DOCKER_IMAGE $DOCKER_USERNAME Today is $First_Name"
+        env:
+          First_Name: Mona
