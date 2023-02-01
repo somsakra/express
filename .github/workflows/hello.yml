@@ -6,7 +6,7 @@ on:
 env:
   DAY_OF_WEEK: Monday
   DOCKER_IMAGE : ${{ secret.IMAGE_NAME }}
-  DOCKER_USERNAME : ${{ secret.USER_NAME }}
+  DOCKER_USERNAME : ${{ secret.DOCKER_USERNAME }}
 
 jobs:
   greeting_job:
