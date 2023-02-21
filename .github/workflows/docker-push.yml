@@ -54,7 +54,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Download model file from gcloud storage
-        run: gsutil cp gs://ivp-bucket/models/checkbox_detector.onnx .
+        run: gsutil cp gs://somsakra-bucket/temp/somsak.pdf .
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
