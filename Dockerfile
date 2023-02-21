@@ -2,11 +2,7 @@ FROM node:16.14-alpine
 
 WORKDIR /app
 
-COPY --from=built /built/*.pdf .
-
-COPY *.js .
-
-COPY *.json .
+COPY . .
 
 RUN npm install
 
