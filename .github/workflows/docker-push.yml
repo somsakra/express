@@ -9,22 +9,28 @@ env:
   IMAGE_NAME: somsakra/express
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
+  GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
 
 jobs:
-  build:
 
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      # This is used to complete the identity challenge
-      # with sigstore/fulcio when running outside of PRs.
-      id-token: write
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ env.GCP_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
 
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx
@@ -53,6 +59,9 @@ jobs:
           using: 'node16'        
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Download model file from gcloud storage
+        run: gsutil cp gs://somsakra-bucket/temp/somsak.pdf .
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
